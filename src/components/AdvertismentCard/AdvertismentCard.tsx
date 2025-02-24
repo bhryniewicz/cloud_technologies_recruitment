@@ -26,19 +26,60 @@ export const AdvertismentCard: FC<AdvertismentCardProps> = ({
   const { id, name, description, start_date, end_date } = advertisment;
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   const handleModalVisibility = () => {
     setIsModalOpen((p) => !p);
   };
+
+  const truncatedDescription =
+    description.length > 150
+      ? `${description.substring(0, 150)}...`
+      : description;
+
+  const handleDescriptionToggle = () => {
+    setIsDescriptionExpanded((prev) => !prev);
+  };
+
+  const displayedDescription = isDescriptionExpanded
+    ? description
+    : truncatedDescription;
 
   return (
     <>
       <Card sx={{ width: "100%", marginBottom: 2 }}>
         <CardContent sx={{ p: 4 }}>
           <Typography variant="h5">{name}</Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            {description}
-          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              wordWrap: "break-word",
+            }}
+          >
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                mb: 2,
+                whiteSpace: "normal",
+              }}
+            >
+              {displayedDescription}
+            </Typography>
+          </Box>
+
+          {description.length > 150 && (
+            <Button
+              onClick={handleDescriptionToggle}
+              variant="text"
+              sx={{ p: 0, mb: 2 }}
+            >
+              {isDescriptionExpanded ? "Show Less" : "Show More"}
+            </Button>
+          )}
 
           <Box display="flex" alignItems="center" mb={1}>
             <CalendarToday fontSize="small" />
@@ -52,6 +93,8 @@ export const AdvertismentCard: FC<AdvertismentCardProps> = ({
               {`End Date: ${dayjs(end_date).format("MMMM D, YYYY")}`}
             </Typography>
           </Box>
+
+          {/* Action Buttons */}
           <Box
             display="flex"
             flexDirection={{ xs: "column", md: "row" }}

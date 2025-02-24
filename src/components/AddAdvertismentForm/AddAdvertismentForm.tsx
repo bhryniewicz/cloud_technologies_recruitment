@@ -70,6 +70,8 @@ export const AdvertismentForm: FC<AdvertismentFormProps> = ({
     }
   };
 
+  const startDate = watch("start_date");
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -112,7 +114,7 @@ export const AdvertismentForm: FC<AdvertismentFormProps> = ({
               <DateCalendar
                 value={watch("end_date") || dayjs()}
                 onChange={(newValue) => setValue("end_date", newValue)}
-                minDate={dayjs()}
+                minDate={startDate}
               />
               {errors.end_date && (
                 <p style={{ color: "red" }}>{errors.end_date.message}</p>
