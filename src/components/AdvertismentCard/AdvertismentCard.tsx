@@ -94,7 +94,6 @@ export const AdvertismentCard: FC<AdvertismentCardProps> = ({
             </Typography>
           </Box>
 
-          {/* Action Buttons */}
           <Box
             display="flex"
             flexDirection={{ xs: "column", md: "row" }}
