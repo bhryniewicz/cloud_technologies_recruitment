@@ -12,6 +12,8 @@ export const AdvertismentsList = () => {
       </Typography>
       {isLoading ? (
         <Typography variant="body2">Loading advertisments...</Typography>
+      ) : advertisments?.length === 0 || !advertisments ? (
+        <Typography variant="body2">No advertisments added yet</Typography>
       ) : (
         <Box display="flex" flexDirection="column-reverse">
           {advertisments?.map((advertisment) => (
